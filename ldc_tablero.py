@@ -869,7 +869,7 @@ def markdown(d):
             A("")
             A(f"- Fee APR real (LP): 7d {fmt(p['fee_apr_7'],2,'%')} · 30d {fmt(p['fee_apr_30'],2,'%')}"
               + (f" · reward APR aparte {fmt(p['reward_apr'],2,'%')}" if p.get("reward_apr") else ""))
-            A(f"- Rotación real vs mínima: {fmt(p['rot7_anual'],0,'x')}{' (' + p['rot7_origen'] + ')' if False else (' (implícita, de apyBase7d)' if (p.get('rot7_origen') or '').startswith('impl') else '')} vs {fmt(p['rot_min'],1,'x')} anual → ratio {fmt(p['ratio_be'],1,'x')}"
+            A(f"- Rotación real vs mínima: {fmt(p['rot7_anual'],0,'x')}{' (implícita, de apyBase7d)' if (p.get('rot7_origen') or '').startswith('impl') else ''} vs {fmt(p['rot_min'],1,'x')} anual → ratio {fmt(p['ratio_be'],1,'x')}"
               + (f" (previa {fmt(p['rot7_prev'],0,'x')})" if p.get("rot7_prev") else ""))
             A(f"- Anchura sugerida a {p['horizonte_dias']} días: ±{fmt(p['semianchura_pct'],2,'%')} · amplificación {fmt(p['amplificacion'],1,'x')}")
             A(f"- LVR anual: rango completo {fmt(p['lvr_full_range_pct'],2,'%')} · posición a ±{fmt(p['semianchura_pct'],2,'%')} {fmt(p['lvr_posicion_pct'],2,'%')}")
@@ -903,8 +903,13 @@ def markdown(d):
         A("|---|---|---|---|---|---|---|---|")
         for p in d["radar"]:
             por = "fee APR alto" if (p["fee_apr_7"] or 0) > 20 else "rotación alta"
+            impl = (p.get("rot7_origen") or "").startswith("impl")
             A(f"| {p['par']} | {p['plataforma']} | {fmt_usd(p['tvl'])} | {fmt((p['fee'] or 0)*100,3,'%') if p['fee'] else 'n/d'} | "
-              f"{fmt(p['rot7_anual'],0,'x')} | {fmt(p['fee_apr_7'],1,'%')} | {fmt(p['fee_apr_30'],1,'%')} | {por} |")
+              f"{fmt(p['rot7_anual'],0,'x')}{'*' if impl else ''} | {fmt(p['fee_apr_7'],1,'%')} | {fmt(p['fee_apr_30'],1,'%')} | {por} |")
+        if any((p.get("rot7_origen") or "").startswith("impl") for p in d["radar"]):
+            A("")
+            A("\\* Rotación implícita, invertida de `apyBase7d` de DefiLlama. Con fees muy bajos la inversión "
+              "amplifica cualquier error de esa medida: cifra orientativa, sin veredicto.")
     A("")
 
     if d["notas"]:

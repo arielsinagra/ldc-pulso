@@ -455,8 +455,11 @@ def _fee_de_poolmeta(meta):
 def pools_aerodrome(llama_pools):
     """Aerodrome (Base) desde yields.llama.fi/pools, que no tiene API pública propia.
 
-    apyBase = fee APR según DefiLlama; volumeUsd7d/tvlUsd = rotación 7d.
-    No hay ventana de 30 días de volumen: se declara.
+    apyBase7d = fee APR a 7 días según DefiLlama. volumeUsd7d viene vacío en casi
+    todos los pools de Aerodrome (2 de 413 en la comprobación de agosto de 2026),
+    así que la rotación 7d se obtiene invirtiendo apyBase7d (ver enriquecer()).
+    apyMean30d NO es fee APR: es la media del APY total, con emisiones de AERO.
+    Por eso el fee APR a 30 días de Aerodrome es n/d y no se usa apyMean30d.
     """
     res = []
     if not llama_pools:
@@ -474,7 +477,7 @@ def pools_aerodrome(llama_pools):
         res.append(_pool("Aerodrome", "Base", p.get("pool"), a, b,
                          _fee_de_poolmeta(p.get("poolMeta")), tvl,
                          fnum(p.get("volumeUsd1d")), fnum(p.get("volumeUsd7d")), None,
-                         fnum(p.get("apyBase7d")), fnum(p.get("apyMean30d")), fnum(p.get("apyReward")),
+                         fnum(p.get("apyBase7d")), None, fnum(p.get("apyReward")),
                          {"apyBase": fnum(p.get("apyBase")), "poolMeta": p.get("poolMeta"),
                           "project": p.get("project")}))
     return res
@@ -508,16 +511,24 @@ def enriquecer(p, rv30_pct, prev_por_id):
     # Rotación anualizada (volumen/TVL)
     p["rot7_anual"] = v7 / tvl * 365 / 7 if (v7 and tvl) else None
     p["rot30_anual"] = v30 / tvl * 365 / 30 if (v30 and tvl) else None
+    p["rot7_origen"] = "volumen" if p["rot7_anual"] is not None else None
 
     # Fee APR del LP, calculado desde volumen (comparable entre plataformas)
     p["fee_apr_7"] = p["rot7_anual"] * fee * split * 100 if (p["rot7_anual"] is not None and fee) else None
     p["fee_apr_30"] = p["rot30_anual"] * fee * split * 100 if (p["rot30_anual"] is not None and fee) else None
-    # Aerodrome no da fee ni vol30: se usa el apyBase de DefiLlama como fee APR
+
+    # Aerodrome: DefiLlama no publica volumen 7d para casi ningún pool, pero sí
+    # apyBase7d, su propia medida de comisiones/TVL a 7 días. Como
+    # fee APR = rotación × fee × reparto, la rotación queda determinada por esa
+    # medida de la MISMA ventana: no es una estimación, es una inversión algebraica.
+    # Se marca el origen para que el informe lo declare.
     if p["plataforma"] == "Aerodrome":
-        if p["fee_apr_7"] is None:
+        if p["fee_apr_7"] is None and p["fee_apr_api_7"] is not None:
             p["fee_apr_7"] = p["fee_apr_api_7"]
-        if p["fee_apr_30"] is None:
-            p["fee_apr_30"] = p["fee_apr_api_30"]
+            if fee and split:
+                p["rot7_anual"] = p["fee_apr_api_7"] / 100 / (fee * split)
+                p["rot7_origen"] = "implícita (apyBase7d)"
+        # fee_apr_30 se queda en None: apyMean30d incluye emisiones y no sirve
 
     # Tendencia de volumen: 24h*7 vs 7d, y 7d vs 30d*7/30
     p["tend_24h_vs_7d"] = (v24 * 7 / v7) if (v24 and v7) else None
@@ -571,7 +582,8 @@ def enriquecer(p, rv30_pct, prev_por_id):
     neto = p["neto_mm_anual_pct"]
     estable = p["estab_apr"] is None or 0.5 <= p["estab_apr"] <= 2.0
     if r is None:
-        p["veredicto"], p["motivo"] = "Descartado", "sin rotación o sin fee: no comparable"
+        # No es "Descartado": descartado significa evaluado y no cumple. Aquí no hay dato.
+        p["veredicto"], p["motivo"] = "Sin dato", "sin rotación 7d o sin fee: no evaluable"
     elif r < RATIO_VIGILAR:
         p["veredicto"], p["motivo"] = "Descartado", f"rotación {r:.1f}x la mínima: no cubre ni el LVR de rango completo"
     elif neto is not None and neto <= 0:
@@ -594,7 +606,7 @@ def escanear_pools(rv30_pct, prev_por_id):
         enriquecer(p, rv30_pct, prev_por_id)
     dentro = [p for p in todos if p["alcance"]]
     fuera = [p for p in todos if not p["alcance"]]
-    orden = {"Apto": 0, "Vigilar": 1, "Descartado": 2}
+    orden = {"Apto": 0, "Vigilar": 1, "Descartado": 2, "Sin dato": 3}
     dentro.sort(key=lambda p: (orden[p["veredicto"]], -(p["ratio_be"] or 0)))
     fuera = [p for p in fuera if p["fee_apr_7"] is not None]
     fuera.sort(key=lambda p: -(p["fee_apr_7"] or 0))
@@ -609,12 +621,12 @@ def cambios_vs_previo(dentro, prev_dentro):
     out = {"entran": [], "salen": [], "cambian": []}
     for pid, p in act.items():
         if pid not in prev:
-            if p["veredicto"] != "Descartado":
+            if p["veredicto"] not in ("Descartado", "Sin dato"):
                 out["entran"].append(f"{p['par']} {p['plataforma']} -> {p['veredicto']}")
         elif prev[pid].get("veredicto") != p["veredicto"]:
             out["cambian"].append(f"{p['par']} {p['plataforma']}: {prev[pid].get('veredicto')} -> {p['veredicto']}")
     for pid, p in prev.items():
-        if pid not in act and p.get("veredicto") != "Descartado":
+        if pid not in act and p.get("veredicto") not in ("Descartado", "Sin dato"):
             out["salen"].append(f"{p['par']} {p['plataforma']} (era {p.get('veredicto')})")
     return out
 
@@ -708,7 +720,7 @@ def recolectar(previo=None):
 
 def _fila_pool(p):
     return (f"| {p['par']} | {p['plataforma']} | {fmt_usd(p['tvl'])} | {fmt((p['fee'] or 0)*100,3,'%') if p['fee'] else 'n/d'} | "
-            f"{fmt(p['rot7_anual'],0,'x')} | {fmt(p['rot_min'],0,'x')} | {fmt(p['ratio_be'],1,'x')} | "
+            f"{fmt(p['rot7_anual'],0,'x')}{'*' if (p.get('rot7_origen') or '').startswith('impl') else ''} | {fmt(p['rot_min'],1,'x')} | {fmt(p['ratio_be'],1,'x')} | "
             f"{fmt(p['fee_apr_7'],2,'%')} | {fmt(p['fee_apr_30'],2,'%')} | {fmt(p['estab_apr'],2)} | "
             f"{fmt(p['dilucion_pp'],1,' pp')} | **{p['veredicto']}** |")
 
@@ -841,18 +853,23 @@ def markdown(d):
         for p in todos[:15]:
             A(_fila_pool(p))
         A("")
-        aptos = [p for p in todos if p["veredicto"] != "Descartado"]
+        if any((p.get("rot7_origen") or "").startswith("impl") for p in todos[:15]):
+            A("\\* Rotación implícita: DefiLlama no publica volumen 7d para ese pool; se obtiene invirtiendo "
+              "su `apyBase7d` (fee APR = rotación × fee × reparto). Misma ventana, sin estimación. "
+              "Sin volumen 30d, la estabilidad 7d/30d de esos pools queda n/d.")
+            A("")
+        aptos = [p for p in todos if p["veredicto"] not in ("Descartado", "Sin dato")]
         if not aptos:
             A("**Ningún pool en alcance cubre el break-even.** Situación C del LP System: salida válida, y es información.")
             A("")
         for p in d["candidatos"]:
-            if p["veredicto"] == "Descartado":
+            if p["veredicto"] in ("Descartado", "Sin dato"):
                 continue
             A(f"### {p['par']} — {p['plataforma']} ({p['cadena']}), fee {fmt((p['fee'] or 0)*100,3,'%') if p['fee'] else 'n/d'}")
             A("")
             A(f"- Fee APR real (LP): 7d {fmt(p['fee_apr_7'],2,'%')} · 30d {fmt(p['fee_apr_30'],2,'%')}"
               + (f" · reward APR aparte {fmt(p['reward_apr'],2,'%')}" if p.get("reward_apr") else ""))
-            A(f"- Rotación real vs mínima: {fmt(p['rot7_anual'],0,'x')} vs {fmt(p['rot_min'],0,'x')} anual → ratio {fmt(p['ratio_be'],1,'x')}"
+            A(f"- Rotación real vs mínima: {fmt(p['rot7_anual'],0,'x')}{' (' + p['rot7_origen'] + ')' if False else (' (implícita, de apyBase7d)' if (p.get('rot7_origen') or '').startswith('impl') else '')} vs {fmt(p['rot_min'],1,'x')} anual → ratio {fmt(p['ratio_be'],1,'x')}"
               + (f" (previa {fmt(p['rot7_prev'],0,'x')})" if p.get("rot7_prev") else ""))
             A(f"- Anchura sugerida a {p['horizonte_dias']} días: ±{fmt(p['semianchura_pct'],2,'%')} · amplificación {fmt(p['amplificacion'],1,'x')}")
             A(f"- LVR anual: rango completo {fmt(p['lvr_full_range_pct'],2,'%')} · posición a ±{fmt(p['semianchura_pct'],2,'%')} {fmt(p['lvr_posicion_pct'],2,'%')}")

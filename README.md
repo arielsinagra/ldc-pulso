@@ -14,3 +14,19 @@ pools en Orca, Raydium y Aerodrome. Solo datos públicos. No emite dirección.
 
 Uso manual: `python3 ldc_tablero.py` (markdown por pantalla) o `./publicar.sh`
 (genera y publica). Solo librería estándar de Python; sin claves.
+
+## Automatización
+
+`com.arielsinagra.ldc-pulso.plist` es la fuente del agente launchd que ejecuta
+`publicar.sh` los sábados a las 08:15 (hora local del Mac). La copia que corre de
+verdad vive en `~/Library/LaunchAgents/`; este archivo es solo la fuente versionada.
+Si se cambia, hay que reinstalarla para que launchd la recargue:
+
+```sh
+cp com.arielsinagra.ldc-pulso.plist ~/Library/LaunchAgents/
+launchctl bootout   gui/$(id -u)/com.arielsinagra.ldc-pulso
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.arielsinagra.ldc-pulso.plist
+```
+
+`launchctl kickstart -k gui/$(id -u)/com.arielsinagra.ldc-pulso` fuerza una ejecución
+inmediata. El registro queda en `~/Library/Logs/ldc-pulso.log`.

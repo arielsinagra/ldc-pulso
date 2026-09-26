@@ -1,6 +1,6 @@
-# Posiciones LP — 2026-09-26T12:15:50+00:00
+# Posiciones LP — 2026-09-26T15:05:17+00:00
 
-Script v1.0 · BTC n/d · ATR14 diario n/d · último cierre H4 n/d (n/d UTC) · EUR/USD n/d
+Script v1.0 · BTC $84,034.01 · ATR14 diario 2.91% · último cierre H4 $84,176.00 (2026-09-26 11:59 UTC) · EUR/USD 1.1403
 Tablero: régimen RANGO CON VOLUMEN · última vela 2026-09-18 · RV30 47.1% · drift 1.14
 
 **Sin posiciones abiertas leídas on-chain.** No hay wallets en `posiciones.config.json`.
@@ -11,10 +11,6 @@ Estas cifras cubren la posición LP y sus comisiones. La exposición al precio d
 - Ninguna
 
 ## Fuentes que fallaron
-- https://data-api.binance.vision/api/v3/klines -> URLError: <urlopen error Tunnel connection failed: 403 Forbidden>
-- https://api.binance.com/api/v3/klines -> URLError: <urlopen error Tunnel connection failed: 403 Forbidden>
-- https://data-api.binance.vision/api/v3/klines -> URLError: <urlopen error Tunnel connection failed: 403 Forbidden>
-- https://api.binance.com/api/v3/klines -> URLError: <urlopen error Tunnel connection failed: 403 Forbidden>
-- https://api.frankfurter.app/latest -> URLError: <urlopen error Tunnel connection failed: 403 Forbidden>
+- Ninguna
 
 Fuentes: RPC Solana y Base (lectura directa de cuentas y contratos) · Binance BTCUSDT (precio, ATR, H4) · Frankfurter/BCE (EUR/USD) · tablero.json del propio repo.

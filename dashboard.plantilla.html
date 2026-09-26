@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Posiciones LP</title>
+<style>
+  :root {
+    --bg: #f6f5f1; --panel: #ffffff; --ink: #1c1c1a; --ink-2: #4a4945; --ink-3: #8a8883;
+    --line: #e2e0d9; --accent: #1f3a5f; --gold: #b8912f;
+    --ok: #2f6b3a; --ok-bg: #e6f2e8; --warn: #8a5a00; --warn-bg: #fbefd2;
+    --bad: #8f2a2a; --bad-bg: #f8e3e3; --stop: #ffffff; --stop-bg: #8f2a2a;
+    --range: #d6dee9; --range-fill: #1f3a5f; --marker: #b8912f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141513; --panel: #1d1e1b; --ink: #ecebe6; --ink-2: #bdbbb4; --ink-3: #7f7d76;
+      --line: #2e2f2b; --accent: #8fb0dc; --gold: #d2ac4c;
+      --ok: #9fd3a8; --ok-bg: #1d2f22; --warn: #ecc46c; --warn-bg: #3a2e12;
+      --bad: #e79a9a; --bad-bg: #3b1d1d; --stop: #ffffff; --stop-bg: #a33a3a;
+      --range: #2b3441; --range-fill: #8fb0dc; --marker: #d2ac4c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141513; --panel: #1d1e1b; --ink: #ecebe6; --ink-2: #bdbbb4; --ink-3: #7f7d76;
+    --line: #2e2f2b; --accent: #8fb0dc; --gold: #d2ac4c;
+    --ok: #9fd3a8; --ok-bg: #1d2f22; --warn: #ecc46c; --warn-bg: #3a2e12;
+    --bad: #e79a9a; --bad-bg: #3b1d1d; --stop: #ffffff; --stop-bg: #a33a3a;
+    --range: #2b3441; --range-fill: #8fb0dc; --marker: #d2ac4c;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 Charter, "Iowan Old Style", Georgia, serif; }
+  main { max-width: 1080px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 26px; margin: 0 0 4px; font-weight: 600; letter-spacing: .01em; }
+  h2 { font-size: 18px; margin: 0; font-weight: 600; }
+  .sub { color: var(--ink-2); font-size: 14px; margin-bottom: 20px; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 22px; }
+  .tile { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+  .tile .k { font-size: 12px; color: var(--ink-3); text-transform: uppercase; letter-spacing: .06em; }
+  .tile .v { font-size: 22px; font-weight: 600; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .tile .n { font-size: 12px; color: var(--ink-2); }
+  .card { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 8px; padding: 16px 18px; margin-bottom: 14px; }
+  .card.s-STOP { border-left-color: var(--stop-bg); }
+  .card.s-FUERA { border-left-color: var(--bad); }
+  .card.s-ALERTA { border-left-color: var(--warn); }
+  .head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; margin-bottom: 8px; }
+  .meta { color: var(--ink-3); font-size: 13px; }
+  .badge { font: 600 12px/1 system-ui, sans-serif; letter-spacing: .05em; padding: 5px 9px; border-radius: 4px; }
+  .b-EN { background: var(--ok-bg); color: var(--ok); }
+  .b-ALERTA { background: var(--warn-bg); color: var(--warn); }
+  .b-FUERA { background: var(--bad-bg); color: var(--bad); }
+  .b-STOP { background: var(--stop-bg); color: var(--stop); }
+  .motivo { color: var(--ink-2); font-size: 14px; margin-bottom: 12px; }
+  .rango { position: relative; height: 48px; margin: 6px 0 4px; }
+  .rango .barra { position: absolute; left: 0; right: 0; top: 22px; height: 6px; background: var(--range); border-radius: 3px; }
+  .rango .dentro { position: absolute; top: 22px; height: 6px; background: var(--range-fill); border-radius: 3px; }
+  .rango .marca { position: absolute; top: 16px; width: 3px; height: 18px; background: var(--marker); border-radius: 2px; transform: translateX(-50%); }
+  .rango .lab { position: absolute; top: 32px; font-size: 11px; color: var(--ink-3); font-variant-numeric: tabular-nums; transform: translateX(-50%); white-space: nowrap; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px 16px; margin-top: 14px; font-size: 14px; }
+  .grid .k { color: var(--ink-3); font-size: 12px; }
+  .grid .v { font-variant-numeric: tabular-nums; }
+  .neg { color: var(--bad); } .pos { color: var(--ok); }
+  .notas { font-size: 13px; color: var(--ink-2); }
+  .notas li { margin: 2px 0; }
+  .vacio { background: var(--panel); border: 1px dashed var(--line); border-radius: 8px; padding: 22px; color: var(--ink-2); }
+  .rango .lab.arriba { top: 0; color: var(--ink-2); }
+  code { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--ink-2); word-break: break-all; }
+  details { margin-top: 18px; } summary { cursor: pointer; color: var(--ink-2); }
+  .aviso { font-size: 13px; color: var(--ink-3); border-top: 1px solid var(--line); padding-top: 12px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Posiciones LP</h1>
+  <div class="sub" id="sub"></div>
+  <div class="tiles" id="tiles"></div>
+  <div id="lista"></div>
+  <p class="aviso">Estas cifras cubren la posición de liquidez y sus comisiones. La exposición al precio del activo base es dirección y no se evalúa aquí más allá de su descomposición contable. Si un dato no se pudo obtener, aparece como n/d; nada se estima.</p>
+  <details><summary>Notas y fuentes que fallaron</summary><ul class="notas" id="notas"></ul></details>
+</main>
+<script>
+const D = /*__DATOS__*/null;
+const nd = "n/d";
+const f = (v, d = 2, suf = "", pre = "") => (v == null || Number.isNaN(v)) ? nd : pre + v.toLocaleString("es-ES", { minimumFractionDigits: d, maximumFractionDigits: d }) + suf;
+const usd = v => f(v, 2, "", "$");
+const el = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; };
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const clave = s => (s || "").split(" ")[0];  // "EN RANGO" -> EN, "ALERTA DE BORDE" -> ALERTA, "FUERA DE RANGO" -> FUERA, "STOP"
+
+if (!D) { document.getElementById("lista").innerHTML = '<div class="vacio">Sin datos: este archivo lo genera lp_posiciones.py.</div>'; }
+else {
+  const m = D.mercado, t = D.tablero, r = D.resumen;
+  document.getElementById("sub").textContent =
+    `Generado ${D.generado_utc.replace("T", " ").slice(0, 16)} UTC · script v${D.version_script} · tablero: régimen ${t.regimen || nd}, última vela ${t.ultima_vela || nd}`;
+  const tiles = [
+    ["Posiciones", r.n_posiciones, ""],
+    ["Valor", usd(r.valor_usd), "a precios actuales"],
+    ["Fees pendientes", usd(r.fees_pendientes_usd), "sin cobrar"],
+    ["BTC", usd(m.btc_precio), m.btc_fuente ? "Binance" : nd],
+    [`ATR${m.atr_dias} diario`, f(m.atr_pct, 2, "%"), "unidad de distancia al borde"],
+    ["Cierre H4", usd(m.h4_cierre), (m.h4_hora_utc || nd) + " UTC"],
+    ["EUR/USD", f(m.eurusd, 4), "BCE"],
+  ];
+  const T = document.getElementById("tiles");
+  tiles.forEach(([k, v, n]) => { const d = el("div", "tile"); d.append(el("div", "k", esc(k)), el("div", "v", esc(v)), el("div", "n", esc(n))); T.append(d); });
+
+  const L = document.getElementById("lista");
+  if (!D.posiciones.length) {
+    const w = Object.values(D.wallets).flat();
+    L.append(el("div", "vacio", w.length ? `Sin posiciones abiertas en ${w.map(esc).join(", ")}.` : "No hay wallets configuradas en <code>posiciones.config.json</code>. El lector se activa al añadir direcciones públicas."));
+  }
+  D.posiciones.forEach(p => {
+    const k = clave(p.situacion);
+    const c = el("div", "card s-" + k);
+    const h = el("div", "head");
+    h.append(el("h2", "", `${esc(p.par)} <span class="meta">${esc(p.plataforma)} · ${esc(p.cadena)}${p.stakeada ? " · en gauge" : ""} · fee ${f(p.fee_bps, 2, " bps")}</span>`));
+    h.append(el("span", "badge b-" + k, esc(p.situacion)));
+    c.append(h, el("div", "motivo", esc(p.situacion_motivo)));
+    if (p.precio != null) {
+      // Barra de rango: eje lineal entre rango_inf−pad y rango_sup+pad, marca en el precio
+      const lo = p.rango_inf, hi = p.rango_sup, pad = (hi - lo) * 0.35;
+      const x0 = Math.min(lo - pad, p.precio - pad * 0.3), x1 = Math.max(hi + pad, p.precio + pad * 0.3);
+      const pct = v => ((v - x0) / (x1 - x0) * 100);
+      const R = el("div", "rango");
+      R.append(el("div", "barra"));
+      const dentro = el("div", "dentro"); dentro.style.left = pct(lo) + "%"; dentro.style.width = (pct(hi) - pct(lo)) + "%"; R.append(dentro);
+      const mk = el("div", "marca"); mk.style.left = pct(p.precio) + "%"; mk.title = "precio " + f(p.precio, 4); R.append(mk);
+      [[lo, f(lo, 4), ""], [hi, f(hi, 4), ""], [p.precio, "precio " + f(p.precio, 4), " arriba"]].forEach(([v, s, c]) => { const l = el("div", "lab" + c, esc(s)); l.style.left = Math.min(92, Math.max(8, pct(v))) + "%"; R.append(l); });
+      c.append(R);
+    }
+    const g = el("div", "grid");
+    const fila = (k, v, cls) => { const d = el("div"); d.append(el("div", "k", esc(k)), el("div", "v" + (cls ? " " + cls : ""), v)); g.append(d); };
+    fila("Distancia al borde inferior", `${f(p.dist_inf_pct, 2, "%")} · ${f(p.dist_inf_atr, 1)} ATR`);
+    fila("Distancia al borde superior", `${f(p.dist_sup_pct, 2, "%")} · ${f(p.dist_sup_atr, 1)} ATR`);
+    fila("Semianchura", f(p.semianchura_pct, 2, "%"));
+    fila("Composición", `${f(p.base_amt, 6)} ${esc(p.base)} + ${f(p.cot_amt, 2)} ${esc(p.cot)}`);
+    fila("Valor", usd(p.valor_usd));
+    fila("Fees pendientes", `${usd(p.fees_usd)} <span class="meta">${esc(p.fees_origen)}</span>`);
+    if (p.h4_fuera != null) fila("Cierre H4", `${usd(p.h4_cierre)} · ${p.h4_fuera ? "FUERA de rango" : "dentro"}`, p.h4_fuera ? "neg" : "");
+    if (p.manual) {
+      fila("Abierta hace", f(p.dias_abierta, 1, " días"));
+      fila("IL frente a HODL", usd(p.il_usd), p.il_usd < 0 ? "neg" : "pos");
+      fila("Exposición al precio", usd(p.exposicion_usd), p.exposicion_usd < 0 ? "neg" : "pos");
+      fila("Earn (cobros + pendientes)", usd(p.earn_usd));
+      fila("earn / IL", `${f(p.ratio_earn_il, 2)} <span class="meta">umbrales ${D.parametros.umbral_earn_il_entrar} / ${D.parametros.umbral_earn_il_reposicionar}</span>`);
+    } else {
+      fila("Tracker", `<span class="meta">sin datos manuales: IL y earn/IL no calculables</span>`);
+    }
+    if (p.tablero_veredicto) fila("Tablero", `${esc(p.tablero_veredicto)} · neto MM ${f(p.tablero_neto_pct, 2, "%")}`);
+    fila("Pool", `<code>${esc(p.pool)}</code>`);
+    c.append(g);
+    L.append(c);
+  });
+  (D.solo_manual || []).forEach(x => {
+    const c = el("div", "card");
+    c.append(el("div", "head", `<h2>${esc(x.clave)} <span class="meta">solo manual · sin lectura on-chain</span></h2>`));
+    c.append(el("div", "motivo", `entrada ${esc(x.fecha_entrada || nd)} · capital ${usd(x.capital_usd)} · ${esc(x.notas || "")}`));
+    L.append(c);
+  });
+  const N = document.getElementById("notas");
+  [...(D.notas || []), ...(D.errores || []).map(e => "Falló: " + e)].forEach(n => N.append(el("li", "", esc(n))));
+  if (!N.children.length) N.append(el("li", "", "Ninguna"));
+}
+</script>
+</body>
+</html>

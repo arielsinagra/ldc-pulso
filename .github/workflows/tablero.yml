@@ -1,0 +1,39 @@
+name: tablero
+
+on:
+  schedule:
+    - cron: "15 6 * * 6"      # sábados 06:15 UTC (08:15 CEST / 07:15 CET)
+  workflow_dispatch:           # ejecución manual desde la pestaña Actions
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publicacion
+  cancel-in-progress: false
+
+jobs:
+  tablero:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generar tablero
+        run: python3 ldc_tablero.py --out .
+      - name: Generar posiciones y dashboard
+        run: python3 lp_posiciones.py --out .
+      - name: Publicar
+        run: |
+          git config user.name  "ldc-tablero[bot]"
+          git config user.email "ldc-tablero@users.noreply.github.com"
+          git add tablero.md tablero.json historico/ posiciones.md posiciones.json dashboard.html
+          if git diff --cached --quiet; then
+            echo "sin cambios que publicar"
+          else
+            git commit -m "tablero $(date -u +%F) (actions)"
+            git pull --rebase --autostash
+            git push
+          fi

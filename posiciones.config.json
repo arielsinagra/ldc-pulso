@@ -1,0 +1,64 @@
+{
+  "_": "Configuración del lector de posiciones LP. Solo direcciones PÚBLICAS: nunca claves, seeds ni nada que firme. Este archivo lo edita Ariel a mano.",
+
+  "wallets": {
+    "solana": [],
+    "base": []
+  },
+
+  "_wallets": "Direcciones públicas a escanear. Solana: posiciones de Orca Whirlpools y Raydium CLMM (NFT de posición en la wallet). Base: posiciones de Aerodrome Slipstream (NFT en la wallet). Vacío = no se lee nada on-chain.",
+
+  "posiciones_base_extra": [],
+  "_posiciones_base_extra": "tokenIds de Slipstream que no están en la wallet (por ejemplo, stakeados en gauge: el NFT lo custodia el gauge). Se leen por id.",
+
+  "posiciones_manuales": [],
+  "_posiciones_manuales": "Datos que la cadena no da y que el tracker del LP System sí tiene. Se cruzan con la posición on-chain por 'clave' (Solana: mint del NFT de posición; Base: 'slipstream:<tokenId>'). Campos: clave, fecha_entrada (ISO), precio_entrada (base en unidades de cotización), token_base_entrada, token_cot_entrada, capital_usd, cobros_usd (comisiones ya cobradas, suma), stop, notas. Una posición manual sin lectura on-chain también se reporta, marcada como 'solo manual'.",
+
+  "parametros": {
+    "atr_dias": 14,
+    "alerta_borde_atr": 1.0,
+    "umbral_earn_il_entrar": 2.0,
+    "umbral_earn_il_reposicionar": 2.5,
+    "sigma_estables_anual_pct": 2.0,
+    "precio_estables_usd": 1.0
+  },
+  "_parametros": "alerta_borde_atr: distancia al borde, en ATR diarios, por debajo de la cual se marca alerta. umbrales earn/IL: los del LP System. precio_estables_usd: supuesto declarado para valorar tokens USD; los pegs se vigilan en el tablero, no aquí.",
+
+  "rpc": {
+    "solana": "https://api.mainnet-beta.solana.com",
+    "base": "https://mainnet.base.org"
+  },
+
+  "contratos": {
+    "_": "Direcciones de programas y contratos. Verificadas contra docs antes de la primera ejecución real; si el Action falla en la lectura, comprobar aquí primero.",
+    "orca_whirlpool_program": "whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc",
+    "raydium_clmm_program": "CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK",
+    "spl_token_program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+    "spl_token_2022_program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+    "aerodrome_slipstream_nft_manager": "0x827922686190790b37229fd06084350E74485b72",
+    "aerodrome_slipstream_factory": "0x5e7BB104d84c7CB9B682AaC2F3d509f5F406809A"
+  },
+
+  "tokens": {
+    "_": "Símbolo y decimales por mint/contrato. Lo que no esté aquí se muestra por dirección abreviada; los decimales se leen de la cadena si faltan.",
+    "solana": {
+      "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": {"simbolo": "USDC", "decimales": 6},
+      "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB": {"simbolo": "USDT", "decimales": 6},
+      "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij": {"simbolo": "cbBTC", "decimales": 8},
+      "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh": {"simbolo": "WBTC", "decimales": 8},
+      "zBTCug3er3tLyffELcvDNrKkCymbPWysGcWihESYfLg": {"simbolo": "zBTC", "decimales": 8},
+      "6DNSN2BJsaPFdFFc1zP37kkeNe4Usc1Sqkzr9C9vPWcU": {"simbolo": "tBTC", "decimales": 8},
+      "HzwqbKZw8HxMN6bF2yFZNrht3c2iXXzpKcFu7uBEDKtr": {"simbolo": "EURC", "decimales": 6},
+      "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo": {"simbolo": "PYUSD", "decimales": 6},
+      "USDSwr9ApdHk5bvJKMjzff41FfuX8bSxdKcR81vTwcA": {"simbolo": "USDS", "decimales": 6}
+    },
+    "base": {
+      "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913": {"simbolo": "USDC", "decimales": 6},
+      "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf": {"simbolo": "cbBTC", "decimales": 8},
+      "0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42": {"simbolo": "EURC", "decimales": 6},
+      "0xfde4c96c8593536e31f229ea8f37b2ada2699bb2": {"simbolo": "USDT", "decimales": 6},
+      "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca": {"simbolo": "USDbC", "decimales": 6},
+      "0x4200000000000000000000000000000000000006": {"simbolo": "WETH", "decimales": 18}
+    }
+  }
+}

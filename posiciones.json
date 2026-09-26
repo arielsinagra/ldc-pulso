@@ -1,0 +1,47 @@
+{
+ "version_script": "1.0",
+ "generado_utc": "2026-09-26T12:15:50+00:00",
+ "mercado": {
+  "btc_precio": null,
+  "btc_fuente": null,
+  "atr_pct": null,
+  "atr_dias": 14,
+  "h4_cierre": null,
+  "h4_hora_utc": null,
+  "eurusd": null
+ },
+ "wallets": {
+  "solana": [],
+  "base": []
+ },
+ "parametros": {
+  "atr_dias": 14,
+  "alerta_borde_atr": 1.0,
+  "umbral_earn_il_entrar": 2.0,
+  "umbral_earn_il_reposicionar": 2.5,
+  "sigma_estables_anual_pct": 2.0,
+  "precio_estables_usd": 1.0
+ },
+ "resumen": {
+  "n_posiciones": 0,
+  "valor_usd": null,
+  "fees_pendientes_usd": null,
+  "alertas": []
+ },
+ "posiciones": [],
+ "solo_manual": [],
+ "tablero": {
+  "ultima_vela": "2026-09-18",
+  "regimen": "RANGO CON VOLUMEN",
+  "rv30": 47.05078754563788,
+  "drift": 1.1421687841057404
+ },
+ "notas": [],
+ "errores": [
+  "https://data-api.binance.vision/api/v3/klines -> URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+  "https://api.binance.com/api/v3/klines -> URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+  "https://data-api.binance.vision/api/v3/klines -> URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+  "https://api.binance.com/api/v3/klines -> URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+  "https://api.frankfurter.app/latest -> URLError: <urlopen error Tunnel connection failed: 403 Forbidden>"
+ ]
+}

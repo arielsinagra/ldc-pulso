@@ -1,7 +1,7 @@
-# Posiciones LP — 2026-09-26T15:05:17+00:00
+# Posiciones LP — 2026-09-26T15:09:21+00:00
 
-Script v1.0 · BTC $84,034.01 · ATR14 diario 2.91% · último cierre H4 $84,176.00 (2026-09-26 11:59 UTC) · EUR/USD 1.1403
-Tablero: régimen RANGO CON VOLUMEN · última vela 2026-09-18 · RV30 47.1% · drift 1.14
+Script v1.0 · BTC $84,020.00 · ATR14 diario 2.91% · último cierre H4 $84,176.00 (2026-09-26 11:59 UTC) · EUR/USD 1.1403
+Tablero: régimen RANGO CON VOLUMEN · última vela 2026-09-25 · RV30 43.0% · drift 0.51
 
 **Sin posiciones abiertas leídas on-chain.** No hay wallets en `posiciones.config.json`.
 

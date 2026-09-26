@@ -1,8 +1,8 @@
 {
  "version_script": "1.0",
- "generado_utc": "2026-09-26T15:05:17+00:00",
+ "generado_utc": "2026-09-26T15:09:21+00:00",
  "mercado": {
-  "btc_precio": 84034.01,
+  "btc_precio": 84020.0,
   "btc_fuente": "Binance BTCUSDT (última vela 1d, puede estar abierta)",
   "atr_pct": 2.905887045034981,
   "atr_dias": 14,
@@ -31,10 +31,10 @@
  "posiciones": [],
  "solo_manual": [],
  "tablero": {
-  "ultima_vela": "2026-09-18",
+  "ultima_vela": "2026-09-25",
   "regimen": "RANGO CON VOLUMEN",
-  "rv30": 47.05078754563788,
-  "drift": 1.1421687841057404
+  "rv30": 42.987700873860184,
+  "drift": 0.5051691334864513
  },
  "notas": [],
  "errores": []

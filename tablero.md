@@ -1,28 +1,28 @@
-# TABLERO LDC — generado 2026-09-19T14:43:31+00:00 — última vela diaria cerrada: 2026-09-18
+# TABLERO LDC — generado 2026-09-26T15:09:02+00:00 — última vela diaria cerrada: 2026-09-25
 
-Comparado contra la ejecución del 2026-08-29T17:13:44+00:00.
+Comparado contra la ejecución del 2026-09-19T14:43:31+00:00.
 
 ## Mercado
 
 | Métrica | Valor | Hace 7d | Δ |
 |---|---|---|---|
-| BTC | $80.884 | $77.226 | 4,74% |
+| BTC | $84.100 | $80.884 | 3,98% |
 
 ## Volatilidad y régimen
 
 | Métrica | Valor | Ejecución previa |
 |---|---|---|
-| Vol. realizada 7d (close-to-close) | 51,8% | |
-| **Vol. realizada 30d (close-to-close)** | **47,1%** | 43,9% |
-| Vol. realizada 30d (Parkinson) | 44,1% | 40,6% |
-| Vol. realizada 90d | 37,9% | |
-| Vol. implícita (DVOL) | 34,8% | 37,0% (hace 7d, Deribit) |
-| Spread IV − RV30 | -12,2 pp | |
-| Drift ratio 30d | 1,14 | 1,56 |
+| Vol. realizada 7d (close-to-close) | 52,3% | |
+| **Vol. realizada 30d (close-to-close)** | **43,0%** | 47,1% |
+| Vol. realizada 30d (Parkinson) | 40,3% | 44,1% |
+| Vol. realizada 90d | 39,0% | |
+| Vol. implícita (DVOL) | 34,7% | 36,3% (hace 7d, Deribit) |
+| Spread IV − RV30 | -8,3 pp | |
+| Drift ratio 30d | 0,51 | 1,14 |
 
-**RÉGIMEN: RANGO CON VOLUMEN** (previo: TENDENCIA DIRECCIONAL)
+**RÉGIMEN: RANGO CON VOLUMEN** (previo: RANGO CON VOLUMEN)
 
-Volatilidad realizada a 30 días del 47.1% anualizado y desplazamiento acumulado de 1.14 desviaciones. Régimen estructuralmente favorable para proveer liquidez concentrada.
+Volatilidad realizada a 30 días del 43.0% anualizado y desplazamiento acumulado de 0.51 desviaciones. Régimen estructuralmente favorable para proveer liquidez concentrada.
 
 *Parkinson usa el rango alto-bajo y es mejor estimador para un LP: el ingreso por comisiones depende del recorrido del precio dentro de la vela, no de dónde cierra.*
 
@@ -32,11 +32,11 @@ Derivada de `b = σ·√τ` con σ = RV30 close-to-close. Semianchura para perma
 
 | Horizonte | Semianchura | Amplificación de comisiones **y** de LVR |
 |---|---|---|
-| 7 días | ±6,73% | 15,9x |
-| 14 días | ±9,65% | 11,4x |
-| 30 días | ±14,44% | 7,9x |
-| 60 días | ±21,02% | 5,8x |
-| 90 días | ±26,32% | 4,8x |
+| 7 días | ±6,13% | 17,3x |
+| 14 días | ±8,78% | 12,4x |
+| 30 días | ±13,12% | 8,6x |
+| 60 días | ±19,04% | 6,3x |
+| 90 días | ±23,80% | 5,2x |
 
 *Concentrar amplifica comisiones y pérdida por el mismo factor. La anchura no decide rentabilidad: decide tiempo en rango, coste de reposicionar y número de hechos imponibles.*
 
@@ -44,43 +44,43 @@ Derivada de `b = σ·√τ` con σ = RV30 close-to-close. Semianchura para perma
 
 | Par y tier | Rotación mínima |
 |---|---|
-| BTC/USDC 5bp en Orca (87% al LP) | 63,6x |
-| BTC/USDC 30bp en Orca (87% al LP) | 10,6x |
-| BTC/USDC 25bp en Raydium (84% al LP) | 13,2x |
+| BTC/USDC 5bp en Orca (87% al LP) | 53,1x |
+| BTC/USDC 30bp en Orca (87% al LP) | 8,9x |
+| BTC/USDC 25bp en Raydium (84% al LP) | 11,0x |
 | Estables 1bp (σ supuesta 2.0%) | 0,57x |
 
 ## Derivados
 
-Fuente: Binance USDT-M BTCUSDT
+Fuente: Deribit BTC-PERPETUAL (respaldo: Binance no accesible)
 
 | Métrica | Valor |
 |---|---|
-| Funding actual (por periodo de 8h) | 0,0100% |
-| Funding medio 7d (por periodo de 8h) | 0,0063% |
-| Open interest | 108.165 BTC |
+| Funding actual (por periodo de 8h) | -0,0000% |
+| Funding medio 7d (por periodo de 8h) | 0,0077% |
+| Open interest | 883.546.980 USD |
 
 ## TVL de las plataformas
 
 | Protocolo | TVL | Hace 7d | Δ |
 |---|---|---|---|
-| orca | $275,91M | $258,89M | 6,6% |
-| raydium | $1,26B | $1,14B | 10,4% |
-| aerodrome-slipstream | $218,48M | $203,95M | 7,1% |
+| orca | $296,99M | $274,67M | 8,1% |
+| raydium | $1,36B | $1,25B | 8,7% |
+| aerodrome-slipstream | $230,49M | $217,27M | 6,1% |
 
 ## Stablecoins
 
 | Cadena | Supply |
 |---|---|
-| Ethereum | $147,24B |
-| Solana | $16,59B |
-| Base | $5,09B |
+| Ethereum | $147,12B |
+| Solana | $17,63B |
+| Base | $5,11B |
 
 | Stablecoin | Precio |
 |---|---|
-| usd-coin | $0,9997 |
-| tether | $0,9996 |
-| usds | $0,9999 |
-| dai | $0,9998 |
+| usds | $0,9997 |
+| tether | $0,9998 |
+| usd-coin | $0,9999 |
+| dai | $0,9999 |
 
 # CANDIDATOS — dónde se puede actuar
 
@@ -92,100 +92,100 @@ Hueco conocido: el tamaño medio de swap, que distinguiría flujo de ruido de ar
 
 | Par | Plataforma | TVL | Fee | Rot. 7d anual | Rot. mínima | Ratio | Fee APR 7d | Fee APR 30d | Estab. 7d/30d | Dilución 7d | Veredicto |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| EURC/USDC | Aerodrome | $565,74k | 0,007% | 2.841x* | 0,7x | 3.976,8x | 19,88% | n/d | n/d | n/d | **Apto** |
-| USDC/EURC | Orca | $464,18k | 0,010% | 809x | 0,6x | 1.407,0x | 7,04% | 8,60% | 0,82 | 38,3 pp | **Apto** |
-| EURC/USDC | Aerodrome | $1,54M | 0,007% | 690x | 0,7x | 966,6x | 4,83% | n/d | n/d | n/d | **Apto** |
-| USDC/USDT | Aerodrome | $821,39k | 0,001% | 4.490x | 5,6x | 808,2x | 4,04% | n/d | n/d | n/d | **Apto** |
-| USDG/USDE | Orca | $2,50M | 0,010% | 411x | 0,6x | 715,8x | 3,58% | 2,62% | 1,37 | -98,1 pp | **Apto** |
-| USDC/USDT | Raydium | $1,57M | 0,010% | 365x | 0,6x | 613,0x | 3,07% | 2,44% | 1,25 | -76,0 pp | **Apto** |
-| TUSD/USDT | Raydium | $351,41k | 0,010% | 351x | 0,6x | 589,3x | 2,95% | 2,05% | 1,44 | -77,5 pp | **Apto** |
-| PYUSD/USDT | Raydium | $351,11k | 0,010% | 345x | 0,6x | 580,1x | 2,90% | 2,74% | 1,06 | -16,9 pp | **Apto** |
-| USDC/USDT | Orca | $738,71k | 0,010% | 277x | 0,6x | 481,8x | 2,41% | 3,31% | 0,73 | 14,2 pp | **Apto** |
-| PYUSD/USDE | Orca | $2,15M | 0,010% | 244x | 0,6x | 424,8x | 2,12% | 1,35% | 1,57 | -178,5 pp | **Apto** |
-| USDC/CBBTC | Aerodrome | $484,38k | 0,150% | 526x* | 18,4x | 28,5x | 78,84% | n/d | n/d | n/d | **Apto** |
-| USDC/CBBTC | Aerodrome | $4,26M | 0,016% | 3.249x* | 169,8x | 19,1x | 52,95% | n/d | n/d | n/d | **Apto** |
-| USDC/CBBTC | Aerodrome | $5,85M | 0,042% | 717x | 65,3x | 11,0x | 30,41% | n/d | n/d | n/d | **Apto** |
-| CBBTC/USDC | Orca | $6,20M | 0,040% | 692x | 79,5x | 8,7x | 24,07% | 30,62% | 0,79 | 36,3 pp | **Apto** |
-| USDS/USDC | Raydium | $1,26M | 0,010% | 63x | 0,6x | 106,1x | 0,53% | 0,72% | 0,74 | 53,4 pp | **Vigilar** |
+| EURC/USDC | Aerodrome | $433,85k | 0,007% | 3.517x* | 0,7x | 4.923,3x | 24,62% | n/d | n/d | n/d | **Apto** |
+| USDC/EURC | Orca | $489,41k | 0,010% | 1.290x | 0,6x | 2.244,2x | 11,22% | 9,00% | 1,25 | -62,7 pp | **Apto** |
+| USDG/USDE | Orca | $2,51M | 0,010% | 841x | 0,6x | 1.463,6x | 7,32% | 4,43% | 1,65 | -104,8 pp | **Apto** |
+| EURC/USDC | Aerodrome | $1,78M | 0,007% | 633x* | 0,7x | 924,7x | 4,62% | n/d | n/d | n/d | **Apto** |
+| USDC/USDT | Orca | $718,89k | 0,010% | 470x | 0,6x | 817,9x | 4,09% | 3,18% | 1,29 | -67,9 pp | **Apto** |
+| PYUSD/USDT | Raydium | $351,24k | 0,010% | 479x | 0,6x | 804,6x | 4,02% | 3,19% | 1,26 | -38,7 pp | **Apto** |
+| TUSD/USDT | Raydium | $351,51k | 0,010% | 427x | 0,6x | 717,6x | 3,59% | 2,46% | 1,46 | -21,8 pp | **Apto** |
+| USDC/USDT | Raydium | $1,60M | 0,010% | 385x | 0,6x | 646,1x | 3,23% | 2,40% | 1,34 | -5,5 pp | **Apto** |
+| USDC/USDT | Aerodrome | $1,54M | 0,001% | 2.396x* | 5,6x | 431,2x | 2,16% | n/d | n/d | n/d | **Apto** |
+| USDC/CBBTC | Aerodrome | $5,10M | 0,012% | 3.321x* | 190,9x | 17,4x | 40,19% | n/d | n/d | n/d | **Apto** |
+| USDC/CBBTC | Aerodrome | $308,84k | 0,150% | 195x* | 15,4x | 12,7x | 29,24% | n/d | n/d | n/d | **Apto** |
+| USDC/CBBTC | Aerodrome | $5,54M | 0,040% | 729x* | 57,7x | 12,6x | 29,16% | n/d | n/d | n/d | **Apto** |
+| CBBTC/USDC | Orca | $5,62M | 0,040% | 828x | 66,4x | 12,5x | 28,80% | 32,12% | 0,90 | -17,8 pp | **Apto** |
+| PYUSD/USDE | Orca | $2,16M | 0,010% | 910x | 0,6x | 1.584,1x | 7,92% | 3,34% | 2,37 | -273,8 pp | **Vigilar** |
+| USDY/USDC | Orca | $1,73M | 0,160% | 9x | 0,0x | 253,1x | 1,27% | 0,57% | 2,21 | -236,9 pp | **Vigilar** |
 
 \* Rotación implícita: DefiLlama no publica volumen 7d para ese pool; se obtiene invirtiendo su `apyBase7d` (fee APR = rotación × fee × reparto). Misma ventana, sin estimación. Sin volumen 30d, la estabilidad 7d/30d de esos pools queda n/d.
 
 ### EURC/USDC — Aerodrome (Base), fee 0,007%
 
-- Fee APR real (LP): 7d 19,88% · 30d n/d · reward APR aparte 25,93%
-- Rotación real vs mínima: 2.841x (implícita, de apyBase7d) vs 0,7x anual → ratio 3.976,8x (previa 2.814x)
+- Fee APR real (LP): 7d 24,62% · 30d n/d · reward APR aparte 75,62%
+- Rotación real vs mínima: 3.517x (implícita, de apyBase7d) vs 0,7x anual → ratio 4.923,3x (previa 2.841x)
 - Anchura sugerida a 30 días: ±0,58% · amplificación 174,9x
 - LVR anual: rango completo 0,01% · posición a ±0,58% 0,87%
-- Neto estimado de market making, anualizado: 19,0% → $76 sobre $400 (fee APR medio del pool menos LVR de la posición; supone concentración igual a la media del pool)
-- Tendencia de volumen: 24h/7d n/d · 7d/30d n/d · cuota de la posición 0,0707% del pool
+- Neto estimado de market making, anualizado: 23,7% → $95 sobre $400 (fee APR medio del pool menos LVR de la posición; supone concentración igual a la media del pool)
+- Tendencia de volumen: 24h/7d n/d · 7d/30d n/d · cuota de la posición 0,0921% del pool
 - Cadencia: revisar cada 5 días; alerta al alejarse ±0,40% del centro (70% de la semianchura)
-- **Apto** — rotación 3976.8x la mínima, neto positivo y APR estable
+- **Apto** — rotación 4923.3x la mínima, neto positivo y APR estable
 
 ### USDC/EURC — Orca (Solana), fee 0,010%
 
-- Fee APR real (LP): 7d 7,04% · 30d 8,60%
-- Rotación real vs mínima: 809x vs 0,6x anual → ratio 1.407,0x (previa 1.168x)
+- Fee APR real (LP): 7d 11,22% · 30d 9,00%
+- Rotación real vs mínima: 1.290x vs 0,6x anual → ratio 2.244,2x (previa 809x)
 - Anchura sugerida a 30 días: ±0,58% · amplificación 174,9x
 - LVR anual: rango completo 0,01% · posición a ±0,58% 0,87%
-- Neto estimado de market making, anualizado: 6,2% → $25 sobre $400 (fee APR medio del pool menos LVR de la posición; supone concentración igual a la media del pool)
-- Tendencia de volumen: 24h/7d 1,02 · 7d/30d 0,82 · cuota de la posición 0,0861% del pool
+- Neto estimado de market making, anualizado: 10,3% → $41 sobre $400 (fee APR medio del pool menos LVR de la posición; supone concentración igual a la media del pool)
+- Tendencia de volumen: 24h/7d 0,39 · 7d/30d 1,25 · cuota de la posición 0,0817% del pool
 - Cadencia: revisar cada 5 días; alerta al alejarse ±0,40% del centro (70% de la semianchura)
-- **Apto** — rotación 1407.0x la mínima, neto positivo y APR estable
-
-### EURC/USDC — Aerodrome (Base), fee 0,007%
-
-- Fee APR real (LP): 7d 4,83% · 30d n/d · reward APR aparte 2,60%
-- Rotación real vs mínima: 690x vs 0,7x anual → ratio 966,6x (previa 938x)
-- Anchura sugerida a 30 días: ±0,58% · amplificación 174,9x
-- LVR anual: rango completo 0,01% · posición a ±0,58% 0,87%
-- Neto estimado de market making, anualizado: 4,0% → $16 sobre $400 (fee APR medio del pool menos LVR de la posición; supone concentración igual a la media del pool)
-- Tendencia de volumen: 24h/7d 0,97 · 7d/30d n/d · cuota de la posición 0,0261% del pool
-- Cadencia: revisar cada 5 días; alerta al alejarse ±0,40% del centro (70% de la semianchura)
-- **Apto** — rotación 966.6x la mínima, neto positivo y APR estable
-
-### USDC/USDT — Aerodrome (Base), fee 0,001%
-
-- Fee APR real (LP): 7d 4,04% · 30d n/d · reward APR aparte 4,35%
-- Rotación real vs mínima: 4.490x vs 5,6x anual → ratio 808,2x (previa 2.007x)
-- Anchura sugerida a 30 días: ±0,58% · amplificación 174,9x
-- LVR anual: rango completo 0,01% · posición a ±0,58% 0,87%
-- Neto estimado de market making, anualizado: 3,2% → $13 sobre $400 (fee APR medio del pool menos LVR de la posición; supone concentración igual a la media del pool)
-- Tendencia de volumen: 24h/7d 1,03 · 7d/30d n/d · cuota de la posición 0,0487% del pool
-- Cadencia: revisar cada 5 días; alerta al alejarse ±0,40% del centro (70% de la semianchura)
-- **Apto** — rotación 808.2x la mínima, neto positivo y APR estable
+- **Apto** — rotación 2244.2x la mínima, neto positivo y APR estable
 
 ### USDG/USDE — Orca (Solana), fee 0,010%
 
-- Fee APR real (LP): 7d 3,58% · 30d 2,62%
-- Rotación real vs mínima: 411x vs 0,6x anual → ratio 715,8x (previa 208x)
+- Fee APR real (LP): 7d 7,32% · 30d 4,43%
+- Rotación real vs mínima: 841x vs 0,6x anual → ratio 1.463,6x (previa 411x)
 - Anchura sugerida a 30 días: ±0,58% · amplificación 174,9x
 - LVR anual: rango completo 0,01% · posición a ±0,58% 0,87%
-- Neto estimado de market making, anualizado: 2,7% → $11 sobre $400 (fee APR medio del pool menos LVR de la posición; supone concentración igual a la media del pool)
-- Tendencia de volumen: 24h/7d 1,46 · 7d/30d 1,37 · cuota de la posición 0,0160% del pool
+- Neto estimado de market making, anualizado: 6,4% → $26 sobre $400 (fee APR medio del pool menos LVR de la posición; supone concentración igual a la media del pool)
+- Tendencia de volumen: 24h/7d 1,61 · 7d/30d 1,65 · cuota de la posición 0,0159% del pool
 - Cadencia: revisar cada 5 días; alerta al alejarse ±0,40% del centro (70% de la semianchura)
-- **Apto** — rotación 715.8x la mínima, neto positivo y APR estable
+- **Apto** — rotación 1463.6x la mínima, neto positivo y APR estable
+
+### EURC/USDC — Aerodrome (Base), fee 0,007%
+
+- Fee APR real (LP): 7d 4,62% · 30d n/d · reward APR aparte 3,19%
+- Rotación real vs mínima: 633x (implícita, de apyBase7d) vs 0,7x anual → ratio 924,7x (previa 690x)
+- Anchura sugerida a 30 días: ±0,58% · amplificación 174,9x
+- LVR anual: rango completo 0,01% · posición a ±0,58% 0,87%
+- Neto estimado de market making, anualizado: 3,7% → $15 sobre $400 (fee APR medio del pool menos LVR de la posición; supone concentración igual a la media del pool)
+- Tendencia de volumen: 24h/7d n/d · 7d/30d n/d · cuota de la posición 0,0225% del pool
+- Cadencia: revisar cada 5 días; alerta al alejarse ±0,40% del centro (70% de la semianchura)
+- **Apto** — rotación 924.7x la mínima, neto positivo y APR estable
+
+### USDC/USDT — Orca (Solana), fee 0,010%
+
+- Fee APR real (LP): 7d 4,09% · 30d 3,18%
+- Rotación real vs mínima: 470x vs 0,6x anual → ratio 817,9x (previa 277x)
+- Anchura sugerida a 30 días: ±0,58% · amplificación 174,9x
+- LVR anual: rango completo 0,01% · posición a ±0,58% 0,87%
+- Neto estimado de market making, anualizado: 3,2% → $13 sobre $400 (fee APR medio del pool menos LVR de la posición; supone concentración igual a la media del pool)
+- Tendencia de volumen: 24h/7d 0,26 · 7d/30d 1,29 · cuota de la posición 0,0556% del pool
+- Cadencia: revisar cada 5 días; alerta al alejarse ±0,40% del centro (70% de la semianchura)
+- **Apto** — rotación 817.9x la mínima, neto positivo y APR estable
 
 ### Cambios respecto a la ejecución previa
 
-- Entran: USDC/USDT Aerodrome -> Apto
-- Entran: USDG/USDE Orca -> Apto
-- Entran: USDC/USDT Raydium -> Apto
+- Entran: USDC/USDT Orca -> Apto
+- Entran: PYUSD/USDT Raydium -> Apto
 - Entran: TUSD/USDT Raydium -> Apto
-- Entran: PYUSD/USDE Orca -> Apto
+- Entran: USDC/USDT Raydium -> Apto
 - Entran: USDC/CBBTC Aerodrome -> Apto
 - Entran: USDC/CBBTC Aerodrome -> Apto
 - Entran: USDC/CBBTC Aerodrome -> Apto
 - Entran: CBBTC/USDC Orca -> Apto
-- Entran: USDS/USDC Raydium -> Vigilar
-- Entran: USD1/USDC Raydium -> Vigilar
-- Entran: USDG/USDC Orca -> Vigilar
+- Entran: PYUSD/USDE Orca -> Vigilar
 - Entran: USDY/USDC Orca -> Vigilar
-- Entran: PYUSD/USDC Orca -> Vigilar
-- Entran: JUPUSD/USDC Raydium -> Vigilar
+- Entran: PYUSD/USDG Orca -> Vigilar
 - Entran: JUPUSD/USDC Orca -> Vigilar
+- Entran: JUPUSD/USDC Raydium -> Vigilar
+- Entran: USDG/USDC Orca -> Vigilar
+- Entran: USD1/USDC Raydium -> Vigilar
+- Entran: PYUSD/USDC Orca -> Vigilar
+- Entran: WBTC/USDC Raydium -> Vigilar
 - Entran: TBTC/USDC Aerodrome -> Vigilar
 - Entran: USDC/CBBTC Aerodrome -> Vigilar
-- Entran: WBTC/USDC Raydium -> Vigilar
 
 ## Radar — fuera del alcance actual
 
@@ -193,20 +193,22 @@ Sin ficha ni veredicto. Para decidir si merece ampliar el alcance, no para actua
 
 | Par | Plataforma | TVL | Fee | Rot. 7d anual | Fee APR 7d (LP) | Fee APR 30d | Por qué destaca |
 |---|---|---|---|---|---|---|---|
-| WETH/USDC | Aerodrome | $256,09k | 2,000% | 1.312x* | 2.623,5% | n/d | fee APR alto |
-| ALLINU/DKNG | Raydium | $435,67k | 1,250% | 1.822x | 1.913,0% | 734,3% | fee APR alto |
-| PURR/HYPE | Raydium | $263,97k | 1,000% | 1.350x | 1.134,0% | 1.451,2% | fee APR alto |
-| TRUST/USDC | Aerodrome | $283,25k | 0,085% | 12.657x* | 1.075,8% | n/d | fee APR alto |
-| WBTC/BTC | Raydium | $332,87k | 1,000% | 992x | 833,4% | 821,2% | fee APR alto |
-| NEAR/NEARKAT | Raydium | $439,42k | 1,250% | 775x | 813,7% | 451,6% | fee APR alto |
-| USDC/ZCAT | Raydium | $276,62k | 0,400% | 2.388x | 802,5% | 318,0% | fee APR alto |
-| HEV/LIT | Raydium | $272,93k | 1,000% | 932x | 783,0% | 234,6% | fee APR alto |
+| NVDAX/SI | Raydium | $496,86k | 1,250% | 3.262x | 3.424,7% | 799,1% | fee APR alto |
+| WETH/USDC | Aerodrome | $257,85k | 2,000% | 1.387x* | 2.773,3% | n/d | fee APR alto |
+| SOL/SHARTCOIN | Raydium | $340,07k | 2,500% | 1.089x | 2.287,1% | 533,7% | fee APR alto |
+| GLDX/GP | Raydium | $254,17k | 1,250% | 2.077x | 2.181,3% | 988,4% | fee APR alto |
+| GMEX/USDC | Orca | $310,83k | 0,650% | 2.423x | 1.370,5% | 482,2% | fee APR alto |
+| ZEC/MASK | Raydium | $507,20k | 1,250% | 1.028x | 1.079,2% | 251,8% | fee APR alto |
+| TRUST/USDC | Aerodrome | $290,18k | 0,040% | 26.729x* | 1.069,2% | n/d | fee APR alto |
+| 🎒/BP | Raydium | $303,23k | 1,250% | 857x | 899,8% | 748,6% | fee APR alto |
 
 \* Rotación implícita, invertida de `apyBase7d` de DefiLlama. Con fees muy bajos la inversión amplifica cualquier error de esa medida: cifra orientativa, sin veredicto.
 
 ## Fuentes que fallaron
 
-Ninguna.
+- https://fapi.binance.com/fapi/v1/premiumIndex -> HTTPError: HTTP Error 451: 
+
+*Los datos afectados figuran como n/d. No se han estimado.*
 
 ## Fuentes
 

@@ -18,6 +18,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -34,6 +36,7 @@ jobs:
             echo "sin cambios que publicar"
           else
             git commit -m "tablero $(date -u +%F) (actions)"
-            git pull --rebase --autostash
+            # Los archivos generados siempre ganan: si otro run publicó entre medias, se rebasa con los nuestros
+            git pull --rebase -X theirs origin main
             git push
           fi
